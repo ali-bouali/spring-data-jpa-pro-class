@@ -1,41 +1,30 @@
 package com.aliboucoding.jpa.models;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import java.util.List;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class Author {
+public class Resource {
 
   @Id
   @GeneratedValue
   private Integer id;
+  private String name;
+  private int size;
+  private String url;
 
-  private String firstName;
-
-  private String lastName;
-
-  @Column(
-      unique = true,
-      nullable = false
-  )
-  private String email;
-
-  private int age;
-
-  @ManyToMany(mappedBy = "authors")
-  private List<Course> courses;
-
+  @OneToOne
+  @JoinColumn(name = "lecture_id")
+  private Lecture lecture;
 }
