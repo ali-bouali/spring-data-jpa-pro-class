@@ -1,25 +1,19 @@
 package com.aliboucoding.jpa.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
-public class Resource {
-
-  @Id
-  @GeneratedValue
-  private Integer id;
+public class Resource extends BaseEntity {
   private String name;
   private int size;
   private String url;
