@@ -1,5 +1,6 @@
 package com.aliboucoding.jpa.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -24,6 +25,7 @@ public class Course extends BaseEntity {
 
   private String description;
 
+  @JsonIgnore
   @ManyToMany
   @JoinTable(
       name = "authors_courses",

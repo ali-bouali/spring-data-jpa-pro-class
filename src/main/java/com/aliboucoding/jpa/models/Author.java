@@ -1,16 +1,11 @@
 package com.aliboucoding.jpa.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 
@@ -20,6 +15,18 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
+@NamedQueries(
+        {
+          @NamedQuery(
+                  name = "Author.findByNamedQuery",
+                  query = "select a from Author a where a.age >= :age"
+          ),
+          @NamedQuery(
+                  name = "Author.updateByNamedQuery",
+                  query = "update Author a set a.age = :age"
+          )
+        }
+)
 public class Author extends BaseEntity {
 
   private String firstName;
@@ -34,7 +41,8 @@ public class Author extends BaseEntity {
 
   private int age;
 
-  @ManyToMany(mappedBy = "authors")
+  @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
+  @JsonIgnore
   private List<Course> courses;
 
 }
